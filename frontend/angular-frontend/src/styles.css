@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --primary-color: rgb(60, 16, 83);
+    --secondary-color: rgb(255, 143, 28);
+    --success-color: rgb(38, 208, 124);
+    --info-color: rgb(100, 26, 139);
+    --warning-color: rgb(255, 84, 28);
+    --danger-color: rgb(224, 0,7);
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+}
+
+body{
+    @apply bg-white;
+}
