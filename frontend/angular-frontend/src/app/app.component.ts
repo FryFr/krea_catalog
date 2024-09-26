@@ -7,9 +7,8 @@ import { HeaderComponent } from './shared/ui/header/header.component';
   standalone: true,
   imports: [RouterOutlet, HeaderComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'angular-frontend';
-  city = 'San Francisco';
+  title = 'signal-store';
 }

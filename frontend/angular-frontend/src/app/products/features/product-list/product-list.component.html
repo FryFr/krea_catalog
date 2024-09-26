@@ -1,0 +1,45 @@
+<div class="mx-auto max-w-screen-xl">
+  @switch (productsState.state.status()) {
+    @case ("loading") {
+      <div class="flex flex-col items-center justify-center h-full">
+        <p class="font-semibold">Loading...</p>
+        <svg class="animate-spin h-5 w-5 text-blue-600 mt-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 0116 0H4z"></path>
+        </svg>
+      </div>
+    }
+    @case ("error") {
+      <div class="flex flex-col items-center justify-center h-full">
+        <p class="font-semibold">Error</p>
+        <svg class="h-5 w-5 text-red-600 mt-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-width="2" d="M12 2v10m0 8v-2m4-8H8"></path>
+        </svg>
+      </div>
+    }
+
+    @default {
+      <h2 class="text-4xl font-bold pl-4 my-6" style="width: 32rem; height: 48px;">Explora todos los productos</h2>
+
+      <div class="grid grid-cols-[repeat(4,300px)] gap-6">
+        @for (product of productsState.state().products; track product) {
+          <app-product-card
+            class="block"
+            [product]="product"
+            (addToCart)="addToCart($event)"
+          />
+        }
+      </div>
+
+      <div class="flex justify-center my-6">
+        <button
+          type="button"
+          (click)="changePage()"
+          class="text-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-blue-800"
+        >
+          Ver más productos
+        </button>
+      </div>
+    }
+  }
+</div>
