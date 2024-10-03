@@ -13,7 +13,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
   providers: [ProductDetailSateService],
 })
 export default class ProductDetailComponent {
-  src = 'https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf';
+  src = 'https://fryfr.github.io/calculadora_electronica/lib/15.1%20DRYWALL%20Y%20ACCESORIOS.pdf';
   productDetailState = inject(ProductDetailSateService).state;
   cartState = inject(CartStateService).state;
 
