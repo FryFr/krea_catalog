@@ -10,5 +10,5 @@ import { HeaderComponent } from './shared/ui/header/header.component';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'signal-store';
+  src = 'https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf';
 }
