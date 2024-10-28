@@ -13,7 +13,7 @@ from pymongo import MongoClient
 # Descomentar el db_client local o remoto correspondiente
 
 # Base de datos local MongoDB
-Base_de_Datos = MongoClient().Productos
+Base_de_Datos = MongoClient().Krea
 
 # Clase en vídeo: https://youtu.be/_y9qQZXE24A?t=25470
 
