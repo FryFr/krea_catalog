@@ -8,16 +8,16 @@ from db.esquemas.esquemas_productos import esquema_producto, esquema_productos
 from db.Mongo import Base_de_Datos
 from bson import ObjectId
 
-router = APIRouter(prefix="/productos_catalogo",
-                   tags=["productos_catalogo"],
+router = APIRouter(prefix="/productos",
+                   tags=["productos"],
                    responses={status.HTTP_404_NOT_FOUND: {"message": "No encontrado"}})
 
 # Función para buscar los productos
 
 def buscar_productos(field: str, key):
     try:
-        user = Base_de_Datos.Productos.find_one({field: key})
-        return Producto(**esquema_producto(user))
+        producto = Base_de_Datos.Productos.find_one({field: key})
+        return Producto(**esquema_producto(producto))
     except:
         return {"error": "No se ha encontrado el usuario"}
 
@@ -41,16 +41,16 @@ async def traer_productos_por_id(id: str):
 async def crear_productos(producto: Producto):
     if type(buscar_productos("nombre", producto.nombre)) == Producto:
         raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT, detail="El usuario ya existe")
+            status_code=status.HTTP_409_CONFLICT, detail="El producto ya existe")
 
     producto_dict = dict(producto)
     del producto_dict["id"]
 
     id = Base_de_Datos.Productos.insert_one(producto_dict).inserted_id
 
-    new_user = esquema_producto(Base_de_Datos.Productos.find_one({"_id": id}))
+    nuevo_producto = esquema_producto(Base_de_Datos.Productos.find_one({"_id": id}))
 
-    return Producto(**new_user)
+    return Producto(**nuevo_producto)
 
 
 @router.put("/", response_model=Producto)
@@ -63,16 +63,18 @@ async def editar_producto(producto: Producto):
         Base_de_Datos.Productos.find_one_and_replace(
             {"_id": ObjectId(producto.id)}, producto_dict)
     except:
-        return {"error": "No se ha actualizado el usuario"}
+        return {"error": "No se ha actualizado producto"}
 
     return buscar_productos("_id", ObjectId(producto.id))
 
 
-@router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{id}")
 async def eliminar_producto(id: str):
 
     found = Base_de_Datos.Productos.find_one_and_delete({"_id": ObjectId(id)})
 
     if not found:
-        return {"error": "No se ha eliminado el usuario"}
+        return {"error": "No se ha eliminado el producto"}
+    
+    return {"mensaje": "El producto fue eliminado"}
 
