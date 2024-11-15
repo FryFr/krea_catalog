@@ -3,9 +3,8 @@
 from pydantic import BaseModel
 from typing import Optional
 
-
 class Producto(BaseModel):
-    id: Optional[str] = None
+    id: str
     nombre: str
     precio: int
     cantidad: int
