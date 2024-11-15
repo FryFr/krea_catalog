@@ -1,6 +1,8 @@
 fastapi[all]
+motor
 python-jose
 passlib
 bcrypt
 pymongo
 python-multipart
+pydantic-settings
