@@ -13,7 +13,7 @@ class PyObjectId(ObjectId):
             raise ValueError("Invalid ObjectId")
         return ObjectId(v)
 
-class Producto(BaseModel):
+class ProductModel(BaseModel):
     id: str
     nombre: str
     precio: int
