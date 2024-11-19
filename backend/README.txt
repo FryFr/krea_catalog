@@ -21,6 +21,7 @@ Ahora es necesario iniciar el servidor:
 
     ruta: Proyecto Krea\krea_catalog\backend\FastAPI
     comando: uvicorn main:app --reload
+    command 2: uvicorn app.main:app --reload
 
 La URL local del servidor es: http://127.0.0.1:8000
 
@@ -47,6 +48,7 @@ Ahora es necesario iniciar el servidor:
 
     ruta: Proyecto Krea\krea_catalog\backend\FastAPI
     comando: uvicorn main:app --reload
+    Comand: uvicorn app.main:app --reload 
 
 La URL local del servidor es: http://127.0.0.1:8000
 
