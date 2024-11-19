@@ -1,0 +1,127 @@
+<div class="max-w-2xl mx-auto p-6 bg-white rounded-xl">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold text-gray-800">{{ product ? 'Editar' : 'Crear' }} Producto</h2>
+    <button 
+      (click)="closeForm.emit()" 
+      class="text-gray-500 hover:text-gray-700"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+  
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="space-y-6">
+    <!-- Preview de imagen -->
+    <div class="mb-6">
+      <div class="flex justify-center">
+        <img 
+          [src]="previewImage || '/assets/placeholder-image.png'" 
+          alt="Preview" 
+          class="h-48 w-48 object-contain border rounded-lg"
+        >
+      </div>
+    </div>
+
+    <!-- Campos del formulario -->
+    <div class="grid grid-cols-2 gap-6">
+      <div class="col-span-2">
+        <label for="title" class="block text-sm font-medium text-gray-700">Título *</label>
+        <input 
+          type="text" 
+          id="title" 
+          formControlName="title"
+          class="mt-1 block w-full rounded-md border border-gray-300 bg-white text-gray-900 px-3 py-2 shadow-sm focus:border-green-500 focus:ring-green-500 focus:ring-1 placeholder-gray-400"
+          [ngClass]="{'border-red-300 focus:border-red-500 focus:ring-red-500': showError('title')}"
+          placeholder="Ingresa el título del producto"
+        >
+        @if (showError('title')) {
+          <p class="mt-1 text-sm text-red-600">El título es requerido</p>
+        }
+      </div>
+
+      <div class="col-span-2">
+        <label for="image" class="block text-sm font-medium text-gray-700">URL de la imagen *</label>
+        <input 
+          type="text" 
+          id="image" 
+          formControlName="image"
+          (input)="onImageUrlChange($event)"
+          class="mt-1 block w-full rounded-md border border-gray-300 bg-white text-gray-900 px-3 py-2 shadow-sm focus:border-green-500 focus:ring-green-500 focus:ring-1 placeholder-gray-400"
+          [ngClass]="{'border-red-300 focus:border-red-500 focus:ring-red-500': showError('image')}"
+          placeholder="https://ejemplo.com/imagen.jpg"
+        >
+        @if (showError('image')) {
+          <p class="mt-1 text-sm text-red-600">La URL de la imagen es requerida</p>
+        }
+      </div>
+
+      <div class="col-span-2">
+        <label for="description" class="block text-sm font-medium text-gray-700">Descripción *</label>
+        <textarea 
+          id="description" 
+          formControlName="description" 
+          rows="3"
+          class="mt-1 block w-full rounded-md border border-gray-300 bg-white text-gray-900 px-3 py-2 shadow-sm focus:border-green-500 focus:ring-green-500 focus:ring-1 placeholder-gray-400"
+          [ngClass]="{'border-red-300 focus:border-red-500 focus:ring-red-500': showError('description')}"
+          placeholder="Describe tu producto"
+        ></textarea>
+        @if (showError('description')) {
+          <p class="mt-1 text-sm text-red-600">La descripción es requerida</p>
+        }
+      </div>
+
+      <div>
+        <label for="price" class="block text-sm font-medium text-gray-700">Precio *</label>
+        <div class="mt-1 relative rounded-md shadow-sm">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <span class="text-gray-500 sm:text-sm">$</span>
+          </div>
+          <input 
+            type="number" 
+            id="price" 
+            formControlName="price"
+            class="pl-7 block w-full rounded-md border border-gray-300 bg-white text-gray-900 px-3 py-2 shadow-sm focus:border-green-500 focus:ring-green-500 focus:ring-1"
+            [ngClass]="{'border-red-300 focus:border-red-500 focus:ring-red-500': showError('price')}"
+            placeholder="0.00"
+          >
+        </div>
+        @if (showError('price')) {
+          <p class="mt-1 text-sm text-red-600">El precio debe ser mayor a 0</p>
+        }
+      </div>
+
+      <div>
+        <label for="category" class="block text-sm font-medium text-gray-700">Categoría *</label>
+        <input 
+          type="text" 
+          id="category" 
+          formControlName="category"
+          class="mt-1 block w-full rounded-md border border-gray-300 bg-white text-gray-900 px-3 py-2 shadow-sm focus:border-green-500 focus:ring-green-500 focus:ring-1 placeholder-gray-400"
+          [ngClass]="{'border-red-300 focus:border-red-500 focus:ring-red-500': showError('category')}"
+          placeholder="Ej: Electrónicos"
+        >
+        @if (showError('category')) {
+          <p class="mt-1 text-sm text-red-600">La categoría es requerida</p>
+        }
+      </div>
+    </div>
+
+    <div class="flex justify-end gap-3 pt-4">
+      <button 
+        type="button"
+        (click)="closeForm.emit()"
+        class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+      >
+        Cancelar
+      </button>
+      <button 
+        type="submit"
+        [disabled]="!productForm.valid"
+        class="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {{ product ? 'Actualizar' : 'Crear' }} Producto
+      </button>
+    </div>
+  </form>
+</div>

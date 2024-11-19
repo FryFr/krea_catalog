@@ -14,7 +14,7 @@ import { CurrencyPipe } from '@angular/common';
 export default class CartComponent {
   state = inject(CartStateService).state;
 
-  onRemove(id: number) {
+  onRemove(id: string) {
     this.state.remove(id);
   }
 

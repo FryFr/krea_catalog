@@ -1,0 +1,13 @@
+:host {
+  display: block;
+  margin: 2rem auto;
+}
+
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+  @apply border-red-500;
+}
+
+.error-message {
+  @apply text-red-500 text-sm mt-1;
+}

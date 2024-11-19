@@ -21,13 +21,13 @@
           >Productos</a>
         </li>
 
-        <!-- Login Button -->
+        <!-- Cambiar Login por Crear Producto y actualizar el routerLink -->
         <li>
           <a
-            routerLink="/login"
-            routerLinkActive="!text-green-500"
+            href="#"
+            (click)="openCreateProductForm($event)"
             class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-black relative"
-          >Login</a>
+          >Crear Producto</a>
         </li>
       </ul>
     </div>
@@ -99,3 +99,28 @@
     style="width: 100%; height: 1px; background-color: gray; position: absolute; top: 100px; left: 0;"
   ></div>
 </nav>
+
+<!-- Añadir al final del template -->
+@if (showCreateForm) {
+  <div 
+    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+    role="dialog"
+    aria-modal="true"
+    tabindex="-1"
+    aria-label="Modal de crear producto"
+  >
+    <div 
+      class="bg-white p-4 rounded-lg max-h-[90vh] w-full max-w-2xl overflow-y-auto" 
+      (click)="$event.stopPropagation()"
+      (keydown)="$event.stopPropagation()"
+      tabindex="0"
+      role="document"
+      aria-label="Formulario de producto"
+    >
+      <app-product-form 
+        (formSubmit)="onProductCreate($event)"
+        (closeForm)="showCreateForm = false"
+      />
+    </div>
+  </div>
+}
